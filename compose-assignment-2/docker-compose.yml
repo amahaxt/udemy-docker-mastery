@@ -1,1 +1,40 @@
 # create your drupal and postgres config here, based off the last assignment
+
+version: '3.1'
+
+services:
+    # Drupal
+    cms:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - "8080:80"
+      volumes:
+        - drupal-modules:/var/www/html/modules
+        - drupal-profiles:/var/www/html/profiles
+        - drupal-themes:/var/www/html/themes
+        - drupal-sites:/var/www/html/sites
+      depends_on:
+       - db
+
+    # MySQL - for extra credit
+    db:
+      image: mysql:5.7
+      ports:
+        - 5432:5432
+      environment:
+        - MYSQL_DATABASE=drupal
+        - MYSQL_USER=user
+        - MYSQL_PASSWORD=mypass
+        - MYSQL_ROOT_PASSWORD=s3cret
+      volumes:
+        - mysql-vol:/var/lib/mysql
+
+# Volumes
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
+  mysql-vol:
