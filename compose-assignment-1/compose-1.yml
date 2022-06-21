@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+    # Drupal
+    cms:
+      image: drupal:8.3.7-apache
+      ports:
+        - "8080:80"
+      volumes:
+        - drupal-modules:/var/www/html/modules
+        - drupal-profiles:/var/www/html/profiles
+        - drupal-themes:/var/www/html/themes
+        - drupal-sites:/var/www/html/sites
+      depends_on:
+       - db
+
+    # Postgres
+    db:
+      image: postgres:9.6.5-alpine
+      ports:
+        - 5432:5432
+      environment:
+        - POSTGRES_DB=drupal-fe
+        - POSTGRES_USER=user
+        - POSTGRES_PASSWORD=mypass
+
+# Volumes
+volumes:
+  drupal-modules:
+  drupal-profiles:
+  drupal-themes:
+  drupal-sites:
