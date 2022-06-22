@@ -12,6 +12,7 @@ services:
       dockerfile: nginx.Dockerfile
     ports:
       - '80:80'
+    image: nginx-custom
   web:
     image: httpd
     volumes:
