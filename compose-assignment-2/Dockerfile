@@ -5,7 +5,8 @@
 FROM drupal:9.3.13
 
 # Run apt package manager command to install git:
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set working directory to /var/www/html/themes
 WORKDIR /var/www/html/themes
